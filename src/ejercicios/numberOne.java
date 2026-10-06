@@ -8,33 +8,165 @@ public class numberOne {
         //Variables
         String nombreUsuario = "";
         int usuariosRegistrados = 0;
+        int clasesRegistradas = 0;
+        int totalCostoClases = 0;
 
         byte opcionClase = 0;
+
+        byte opcionPrincipal = 0;
+        boolean salir = false;
 
         //Entrada
         Scanner in = new Scanner(System.in);
 
 
         System.out.println("Bienvenido al GYM");
-        System.out.println("------------------------------");
+
+
         do {
-            System.out.println("Favor ingresar su nombre de usuario");
-            nombreUsuario = in.nextLine();
+            System.out.println("""
+                       Ingrese la opcion deseada:
+                       1) Registrar Usuario
+                       2) Registra Clase
+                       3) Mostrar total clases
+                       4) Mostrar total ingresos
+                       5) Salir
+                    """);
 
-            if (nombreUsuario == ""){
-                System.out.println("Para poder continuar debes ingresar un nombre!!");
+            opcionPrincipal = in.nextByte();
+            in.nextLine();
+
+            switch (opcionPrincipal) {
+                case 1:
+
+                    if (usuariosRegistrados == 5) {
+                        System.out.println("------------------------------------------------");
+                        System.out.println("Limite registro de usuario permitido, alcanzado!!");
+                        System.out.println("------------------------------------------------");
+                    } else {
+                        System.out.println("------------------------------");
+                        System.out.println("Favor ingresar su nombre de usuario");
+
+                        do {
+                            nombreUsuario = in.nextLine();
+
+                            if (nombreUsuario == "") {
+                                System.out.println("Para poder continuar debes ingresar un usuario!!");
+                            }
+                            //Verificamos que devuelva cada vez que este vacio el nombre
+                            // asegurando que no continue si no hay usuario registrado
+                        } while (nombreUsuario == "");
+
+                        usuariosRegistrados += 1;
+                    }
+
+                    //BREAK
+                    break;
+
+
+                case 2:
+
+                    if (usuariosRegistrados == 0) {
+                        System.out.println("------------------------------------------------");
+                        System.out.println("Debe haber algun usuario registrado para continuar!!");
+                        System.out.println("------------------------------------------------");
+                    } else {
+
+                        if (clasesRegistradas == 5) {
+                            System.out.println("------------------------------------------------");
+                            System.out.println("Limite de clases registradas alcanzada!!");
+                            System.out.println("------------------------------------------------");
+                        } else {
+                            System.out.println("""
+                                    Seleccione la clase:
+                                    ------------------
+                                    1) Spinning ($30)
+                                    2) Yoga ($25)
+                                    3) CrossFit ($40)
+                                    -------------------
+                                    """);
+
+                            opcionClase = in.nextByte();
+
+                            if (opcionClase == 1 || opcionClase == 2 || opcionClase == 3) {
+                                switch (opcionClase) {
+                                    case 1:
+                                        System.out.println("-----------------");
+                                        System.out.println("Costo clase: $30");
+                                        System.out.println("-----------------");
+                                        totalCostoClases += 30;
+                                        break;
+
+                                    case 2:
+                                        System.out.println("-----------------");
+                                        System.out.println("Costo clase: $25");
+                                        System.out.println("-----------------");
+                                        totalCostoClases += 25;
+                                        break;
+
+                                    case 3:
+                                        System.out.println("-----------------");
+                                        System.out.println("Costo clase: $40");
+                                        System.out.println("-----------------");
+                                        totalCostoClases += 40;
+                                        break;
+                                }
+
+                                clasesRegistradas += 1;
+                            } else {
+                                System.out.println("-----------------");
+                                System.out.println("Ingresa un valor valido, vuelve a intentarlo!!");
+                                System.out.println("-----------------");
+                            }
+
+
+                        }
+
+                    }
+
+
+                    break;
+
+
+                case 3:
+
+                    if (clasesRegistradas > 0) {
+                        System.out.println("----------------------------------");
+                        System.out.println("Total clase registrada: " + clasesRegistradas);
+                        System.out.println("----------------------------------");
+
+                    } else {
+                        System.out.println("----------------------------------");
+                        System.out.println("No haz realizado ningun registro de clases!!");
+                        System.out.println("----------------------------------");
+                    }
+
+                    break;
+
+
+                case 4:
+
+                    if (clasesRegistradas > 0) {
+                        System.out.println("----------------------------------");
+                        System.out.println("Total ingresos: $" + totalCostoClases);
+                        System.out.println("----------------------------------");
+                    } else {
+                        System.out.println("----------------------------------");
+                        System.out.println("No haz realizado ningun registro de clases!!");
+                        System.out.println("----------------------------------");
+                    }
+
+                    break;
+
+                case 5:
+                    salir = true;
+                    break;
             }
+        } while (salir == false);
 
-        }while(nombreUsuario == "");
-
-        System.out.println("""
-                Seleccione la clase:
-                ------------------
-                Spinning ($30)
-                Yoga ($25)
-                CrossFit ($40)
-                -------------------
-                """);
+        System.out.println("--------------------------------");
+        System.out.println("GRACIAS POR UTILIZAR EL PROGRAMA!");
+        System.out.println("--------------------------------");
 
     }
 }
